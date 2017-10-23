@@ -1,4 +1,4 @@
-package com.henu.feifei.utils;
+package com.henu.feifei.usefanxing;
 
 import java.util.Iterator;
 import java.util.LinkedList;
