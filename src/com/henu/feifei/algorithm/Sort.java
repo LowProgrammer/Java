@@ -103,7 +103,6 @@ public class Sort {
 	}
 	
 	
-	
 	//一些方法
 	public static void print(int[] arr) {
 		for(int a:arr) {
