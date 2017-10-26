@@ -130,6 +130,7 @@ public class Sort {
 	public static void print(int a) {
 		System.out.println(a);
 	}
+	//截取数组
 	public static int[] subArr(int[] arr,int begin,int end) {
 		int[] temp=new int[end-begin];
 		for(int i=begin;i<end;i++) {
