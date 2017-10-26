@@ -33,7 +33,7 @@ public class Search {
 		}
 		if(value==arr[mid]) {
 			print(mid+1);
-		}else if(value==arr[end]){
+		}else if(value==arr[end]){//剩余两个数时，可能是后面那个值，会陷入死循环
 			print(end+1);
 		}else {
 			if(value>arr[mid]) {

@@ -15,7 +15,8 @@ public class Sort {
 	public static void main(String[] args) {
 		Sort sortInsert=new Sort();
 		int[] A= {7,6,5,4,3,2,1,0};
-		sortInsert.insertionSert(A, 7);
+		//sortInsert.insertionSert(A, 7);
+		sortInsert.bubbleSort(A);
 		print(A);
 		
 		
@@ -102,6 +103,19 @@ public class Sort {
 		//print(arr);
 	}
 	
+	//冒泡排序
+	public static void bubbleSort(int[] arr) {
+		int len=arr.length;
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = i+1; j < arr.length; j++) {
+				if(arr[i]>arr[j]) {
+					arr[i]=arr[i]^arr[j];
+					arr[j]=arr[j]^arr[i];
+					arr[i]=arr[i]^arr[j];
+				}
+			}
+		}
+	}
 	
 	//一些方法
 	public static void print(int[] arr) {
