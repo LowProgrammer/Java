@@ -16,7 +16,7 @@ public class Sort {
 		Sort sortInsert=new Sort();
 		int[] A= {7,6,5,4,3,2,1,0};
 		//sortInsert.insertionSert(A, 7);
-		sortInsert.bubbleSort(A);
+		Sort.bubbleSort(A);
 		print(A);
 		
 		

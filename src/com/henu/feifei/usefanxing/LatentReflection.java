@@ -29,6 +29,7 @@ class Mime{
 		print("Pretending to sit");
 	}
 	public void pushInvisibleWalls() {}
+	@Override
 	public String toString() {
 		return "Mime";
 	}

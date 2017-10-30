@@ -137,7 +137,9 @@ public class StringUtils {
 	}
 	//截取字符串
 	public static String subString(String string,int count){
-		if(isEmpty(string))return "";
+		if(isEmpty(string)) {
+			return "";
+		}
 		int start=0;
 		StringBuilder builder = new StringBuilder();
 		for (int i = start; i < count; i++) {
@@ -324,8 +326,8 @@ public class StringUtils {
 	 * @作用:判断是否为数字
 	 */
 	public static boolean isNumeric(String str) {
-		Matcher isNum = Pattern.compile("(-|\\+)?[0-9]+(.[0-9]+\\+)?").matcher(
-				str);
+		Matcher isNum = Pattern.compile("(-|\\+)?[0-9]+(.[0-9]+\\+)?")
+				.matcher(str);
 		return isNum.matches();
 	}
 	
@@ -370,7 +372,7 @@ public class StringUtils {
 	public static boolean isMobile(String mobiles) {
 		boolean flag = false;
 		try {
-			Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
+			Pattern  p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
 			Matcher m = p.matcher(mobiles);
 			flag = m.matches();
 		} catch (Exception e) {
