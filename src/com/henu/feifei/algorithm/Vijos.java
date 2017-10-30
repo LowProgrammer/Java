@@ -6,7 +6,23 @@ import java.util.Scanner;
 
 public class Vijos {
 	public static void main(String[] args) {
+//		System.out.println(Integer.MAX_VALUE);
+//		System.out.println(Long.MAX_VALUE);
 		Scanner scanner = new Scanner(System.in);
+		byte num=scanner.nextByte();
+		String[] arr=new String[num+1];
+		int i=0;
+		while(scanner.hasNext()) {
+			arr[i++]=scanner.nextLine();
+			if(num+1==i)break;
+		}
+		for (int j2 = 1; j2 < arr.length; j2++) {
+			System.out.println("Case "+j2+":");
+			long a=Long.parseLong(arr[j2].split(" ")[0]);
+			long b=Long.parseLong(arr[j2].split(" ")[1]);
+			System.out.println(a+" + "+b+" = "+(a+b));
+			System.out.println();
+		}
 		
 	}
 	
