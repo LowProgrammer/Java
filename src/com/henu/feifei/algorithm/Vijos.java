@@ -5,49 +5,88 @@ import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.BreakIterator;
+
 import java.util.Scanner;
 
 public class Vijos {
+	
+	public static void main(String[] args) throws ClassNotFoundException {
+			Vijos a=new Vijos();
+			a.max();
+		
+		
+//		Class cl=Class.forName("com.henu.feifei.Test");
+//		try {
+//			Field field=cl.getDeclaredField("age");
+//			System.out.println(field.getName());
+//			System.out.println(field.getType());
+//			System.out.println(field.getModifiers());
+//			System.out.println();
+//		} catch (NoSuchFieldException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (SecurityException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+	}
+	public  void max() {
+		Scanner scanner=new Scanner(System.in);
+		int num=scanner.nextInt();
+		
+		for (int i = 0; i < num; i++) {
+			long start=scanner.nextLong();
+			String[] arr=scanner.nextLine().split(" ");
+			int temp_max=0;
+			int start_sub=0;
+			int end=0;
+			int sums=0;
+			for (int j = 1; j < arr.length; j++) {//null 6 -1 5 4 -7
+					sums+=Integer.parseInt(arr[j]);
+					temp_max=compare(sums, temp_max);
+					if(temp_max==sums) {
+						end=j;
+					}
+			}
+			if(i<(num-1))
+				System.out.println("Case "+(i+1)+":\n"+temp_max+" 1 "+end+"\n");
+			else
+				System.out.println("Case "+(i+1)+":\n"+temp_max+" 1 "+end);
+		}
+		
+		
+	}
+	public int compare(int a,int b) {
+		return a>b?a:b;
+	}
+	public int compare_min(int a,int b) {
+		return a>b?b:a;
+	}
+	
 	// 两个大数相加BigDemimal
+
 	public static void aaa() {
 		Scanner scanner = new Scanner(System.in);
 		String temp1 = null;
 		String temp2 = null;
 		String result = null;
 		int i;
-
+		
 		int a = scanner.nextInt();
 		for (i = 0; i < a; i++) {
 			temp1 = scanner.next();
 			temp2 = scanner.next();
 			BigDecimal bigdecimal = new BigDecimal(temp1);
 			BigDecimal bigdecimal2 = new BigDecimal(temp2);
-
+			
 			result = bigdecimal.add(bigdecimal2).toString();
 			if (i != (a - 1)) {
 				System.out.println(
 						"Case" + " " + (i + 1) + ":\r\n" + bigdecimal + " + " + bigdecimal2 + " = " + result + "\r\n");
 			} else {
 				System.out
-						.println("Case" + " " + (i + 1) + ":\r\n" + bigdecimal + " + " + bigdecimal2 + " = " + result);
+				.println("Case" + " " + (i + 1) + ":\r\n" + bigdecimal + " + " + bigdecimal2 + " = " + result);
 			}
-		}
-	}
-
-	public static void main(String[] args) throws ClassNotFoundException {
-		Class cl=Class.forName("com.henu.feifei.Test");
-		try {
-			Field field=cl.getDeclaredField("age");
-			System.out.println(field.getName());
-			System.out.println(field.getType());
-			System.out.println(field.getModifiers());
-			System.out.println();
-		} catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 
