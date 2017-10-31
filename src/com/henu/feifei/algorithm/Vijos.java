@@ -1,65 +1,54 @@
 package com.henu.feifei.algorithm;
 
+import java.io.File;
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.BreakIterator;
 import java.util.Scanner;
 
 public class Vijos {
-	//两个大数相加BigDemimal
+	// 两个大数相加BigDemimal
 	public static void aaa() {
-		        Scanner scanner = new Scanner(System.in);   
-		        String temp1=null;   
-		        String temp2=null;   
-		        String result=null;   
-		        int i; 
-
-		        int a=scanner.nextInt();   
-		        for(i=0;i<a;i++){    
-		            temp1=scanner.next();    
-		            temp2=scanner.next(); 
-		            BigDecimal bigdecimal=new BigDecimal(temp1);    
-		            BigDecimal bigdecimal2=new BigDecimal(temp2);    
-
-		            result=bigdecimal.add(bigdecimal2).toString();  
-		            if(i!=(a-1)) {
-		                System.out.println("Case"+" "+
-		                (i+1)+":\r\n"+bigdecimal+" + "+bigdecimal2+" = "+result+"\r\n");
-		            } 
-		            else {
-		                System.out.println("Case"+" "+(i+1)
-		                +":\r\n"+bigdecimal+" + "+bigdecimal2+" = "+result);
-		            }   
-		        }      
-	}
-	public static void main(String[] args) {
-		aaa();
-		// System.out.println(Integer.MAX_VALUE);
-		// System.out.println(Long.MAX_VALUE);
 		Scanner scanner = new Scanner(System.in);
-		byte num = scanner.nextByte();
-		String[] arr = new String[num + 1];
-		int i = 0;
-		while (scanner.hasNext()) {
-			arr[i++] = scanner.nextLine();
-			if (num + 1 == i)
-				break;
-		}
-		for (int j2 = 1; j2 < arr.length; j2++) {
-			long a = Long.parseLong(arr[j2].split(" ")[0]);
-			long b = Long.parseLong(arr[j2].split(" ")[1]);
-			StringBuilder builder = new StringBuilder();
-			builder.append("Case ")
-					.append(j2)
-					.append(":\n")
-					.append(a)
-					.append(" + ")
-					.append(b)
-					.append(" = ")
-					.append(a + b).append("\n");
-			System.out.println(builder);
-		}
+		String temp1 = null;
+		String temp2 = null;
+		String result = null;
+		int i;
 
+		int a = scanner.nextInt();
+		for (i = 0; i < a; i++) {
+			temp1 = scanner.next();
+			temp2 = scanner.next();
+			BigDecimal bigdecimal = new BigDecimal(temp1);
+			BigDecimal bigdecimal2 = new BigDecimal(temp2);
+
+			result = bigdecimal.add(bigdecimal2).toString();
+			if (i != (a - 1)) {
+				System.out.println(
+						"Case" + " " + (i + 1) + ":\r\n" + bigdecimal + " + " + bigdecimal2 + " = " + result + "\r\n");
+			} else {
+				System.out
+						.println("Case" + " " + (i + 1) + ":\r\n" + bigdecimal + " + " + bigdecimal2 + " = " + result);
+			}
+		}
+	}
+
+	public static void main(String[] args) throws ClassNotFoundException {
+		Class cl=Class.forName("com.henu.feifei.Test");
+		try {
+			Field field=cl.getDeclaredField("age");
+			System.out.println(field.getName());
+			System.out.println(field.getType());
+			System.out.println(field.getModifiers());
+			System.out.println();
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static int su(int n) {
