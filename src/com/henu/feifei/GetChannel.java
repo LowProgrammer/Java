@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.Arrays;
 
@@ -13,7 +14,7 @@ import com.henu.feifei.utils.Print;
 
 /**
 	*@ClassName:GetChannel
-	*@Description:新的io输入输出
+	*@Description:新的io输入输出  bytebuffer
 	*@author:feifei
 	*@date :2017年11月4日-下午1:08:52
 	*@version:1.0
@@ -99,5 +100,16 @@ public class GetChannel {
 		bb.asCharBuffer().put("abcdef");
 		Print.print(Arrays.toString(bb.array()));
 		bb.rewind();
+	}
+	static int length=0x8FFFFFF;
+	private void largeMappedFiles() throws Exception {
+		MappedByteBuffer out=new RandomAccessFile("test.dat", "rw").getChannel().map(FileChannel.MapMode.READ_WRITE, 0, length);
+		for(int i=0;i<length;i++) {
+			out.put((byte)'x');
+		}
+		Print.print("finished writing");
+		for(int i=length/2;i<length/2+6;i++) {
+			Print.print((char)out.get(i));
+		}
 	}
 }
