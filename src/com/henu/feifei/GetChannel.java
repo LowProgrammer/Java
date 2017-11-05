@@ -4,7 +4,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
+import java.util.Arrays;
+
+import com.henu.feifei.utils.PPrint;
+import com.henu.feifei.utils.Print;
 
 /**
 	*@ClassName:GetChannel
@@ -33,5 +38,66 @@ public class GetChannel {
 		while(buffer.hasRemaining()) {
 			System.out.print((char)buffer.get());
 		}
+		
+		GetChannel a=new GetChannel();
+		a.getdata();
+		a.endians();
+	}
+	//获取基本类型
+	public void getdata() {
+		ByteBuffer bb=ByteBuffer.allocate(BSIZE);
+		int i=0;
+		while(i++<bb.limit()) {
+			if(bb.get()!=0) {
+				Print.print("none zero");
+			}
+		}
+		Print.print("i="+i);
+		bb.rewind();
+		
+		bb.asCharBuffer().put("Howdy");
+		char c;
+		while((c=bb.getChar())!=0) {
+			Print.print(c);
+		}
+		System.out.println();
+		bb.rewind();
+		
+		bb.asShortBuffer().put((short)471142);
+		Print.print(bb.getShort());
+		bb.rewind();
+		
+		bb.asIntBuffer().put(99778453);
+		Print.print(bb.getInt());
+		bb.rewind();
+		
+		bb.asLongBuffer().put(99778453);
+		Print.print(bb.getLong());
+		bb.rewind();
+		
+		bb.asFloatBuffer().put(99778453);
+		Print.print(bb.getFloat());
+		bb.rewind();
+		
+		bb.asDoubleBuffer().put(99778453);
+		Print.print(bb.getDouble());
+		bb.rewind();
+	}
+	//字节存放序列
+	private void endians() {
+		ByteBuffer bb=ByteBuffer.wrap(new byte[12]);
+		bb.asCharBuffer().put("abcdef");
+		Print.print(Arrays.toString(bb.array()));
+		bb.rewind();
+		
+		bb.order(ByteOrder.BIG_ENDIAN);
+		bb.asCharBuffer().put("abcdef");
+		Print.print(Arrays.toString(bb.array()));
+		bb.rewind();
+		
+		bb.order(ByteOrder.LITTLE_ENDIAN);
+		bb.asCharBuffer().put("abcdef");
+		Print.print(Arrays.toString(bb.array()));
+		bb.rewind();
 	}
 }
