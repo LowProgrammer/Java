@@ -17,11 +17,12 @@ public class GetChannel {
 	private static final int BSIZE=1024;
 	public static void main(String[] args)throws Exception {
 		FileChannel fc=new FileOutputStream("data.txt").getChannel();
-		fc.write(ByteBuffer.wrap("some text".getBytes()));
+		fc.write(ByteBuffer.wrap("some text ".getBytes()));
 		fc.close();
 		
-		fc=new RandomAccessFile("data.txt", "rw").getChannel();
+		fc=new RandomAccessFile("data.txt ", "rw").getChannel();
 		fc.position(fc.size());
+		fc.write(ByteBuffer.wrap("some more".getBytes()));
 		fc.close();
 		
 		fc=new FileInputStream("data.txt").getChannel();
@@ -30,7 +31,7 @@ public class GetChannel {
 		buffer.flip();
 		
 		while(buffer.hasRemaining()) {
-			System.out.println((char)buffer.get());
+			System.out.print((char)buffer.get());
 		}
 	}
 }
