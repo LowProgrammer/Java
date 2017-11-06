@@ -7,7 +7,9 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 import com.henu.feifei.utils.PPrint;
 import com.henu.feifei.utils.Print;
@@ -22,6 +24,18 @@ import com.henu.feifei.utils.Print;
 public class GetChannel {
 	private static final int BSIZE=1024;
 	public static void main(String[] args)throws Exception {
+		
+		GetChannel a=new GetChannel();
+		//a.rw();
+		//a.getdata();
+		//a.endians();
+		//a.largeMappedFiles();
+		//a.fileLcoking();
+		a.lockingMappedFiles();
+	}
+	//新的方式读取写入文件void
+	
+	public void rw()throws Exception {
 		FileChannel fc=new FileOutputStream("data.txt").getChannel();
 		fc.write(ByteBuffer.wrap("some text ".getBytes()));
 		fc.close();
@@ -40,9 +54,6 @@ public class GetChannel {
 			System.out.print((char)buffer.get());
 		}
 		
-		GetChannel a=new GetChannel();
-		a.getdata();
-		a.endians();
 	}
 	//获取基本类型
 	public void getdata() {
@@ -101,7 +112,8 @@ public class GetChannel {
 		Print.print(Arrays.toString(bb.array()));
 		bb.rewind();
 	}
-	static int length=0x8FFFFFF;
+	static final int length=0x8FFFFFF;//128M
+	//内存映射文件
 	private void largeMappedFiles() throws Exception {
 		MappedByteBuffer out=new RandomAccessFile("test.dat", "rw").getChannel().map(FileChannel.MapMode.READ_WRITE, 0, length);
 		for(int i=0;i<length;i++) {
@@ -109,7 +121,64 @@ public class GetChannel {
 		}
 		Print.print("finished writing");
 		for(int i=length/2;i<length/2+6;i++) {
+			
 			Print.print((char)out.get(i));
+		}
+	}
+	//文件加锁机制
+	public void fileLcoking()throws Exception {
+		FileOutputStream fos=new FileOutputStream("file.txt");
+		FileLock fl=fos.getChannel().tryLock();
+		if(fl!=null) {
+			System.out.println("locked file");
+			TimeUnit.MILLISECONDS.sleep(100);
+			fl.release();
+			System.out.println("Release lock");
+		}
+		fos.close();
+		
+	}
+	//对映射文件的部分加锁
+	static FileChannel fc;
+	public void lockingMappedFiles() throws Exception{
+		fc=new RandomAccessFile("test.dat", "rw").getChannel();
+		MappedByteBuffer out=fc.map(FileChannel.MapMode.READ_WRITE, 0, length);
+		for(int i=0;i<length;i++) {
+			out.put((byte)'x');
+		}
+		new LockAndModify(out, 0,0+length/3);
+		new LockAndModify(out, length/2,length/2+length/4);
+	}
+	private static class LockAndModify extends Thread {
+		private ByteBuffer buffer;
+		private int start,end;
+		public LockAndModify(ByteBuffer mbb,int start,int end) {
+			// TODO Auto-generated constructor stub
+			this.start=start;
+			this.end=end;
+			mbb.limit(end);
+			mbb.position(start);
+			buffer=mbb.slice();//创建缓冲区和用户修改
+			start();
+		}
+		@Override
+		public void run() {
+			try {
+				long beg=System.nanoTime();
+				FileLock fl=fc.lock(start,end,false);
+				System.out.println("locked: "+start+" to "+end);
+				
+				while(buffer.position()<buffer.limit()-1) {
+					buffer.put((byte)(buffer.get()+1));
+				}
+				fl.release();
+				System.out.println("released: "+start+" to "+end);
+				long dur=System.nanoTime()-beg;
+				System.out.format("%.2f\n", dur/1.0e9);
+			} catch (Exception e) {
+				// TODO: handle exception
+				throw new RuntimeException(e);
+			}
 		}
 	}
 }
