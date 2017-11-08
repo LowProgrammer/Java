@@ -14,7 +14,7 @@ import com.henu.feifei.utils.Print;
 
 /**
 	*@ClassName:WormSerializable
-	*@Description:TODO
+	*@Description:压缩文件的实现
 	*@author:feifei
 	*@date :2017年11月8日-下午2:09:47
 	*@version:1.0
