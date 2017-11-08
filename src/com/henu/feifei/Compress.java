@@ -70,7 +70,7 @@ public class Compress {
 	//arr:需要进行压缩的文件 name:压缩文件名称
 	public void ZIPcompress(String[] arr,String name)throws Exception {
 		FileOutputStream f=new FileOutputStream(name);
-		CheckedOutputStream csum=new CheckedOutputStream(f,new Adler32());
+		CheckedOutputStream csum=new CheckedOutputStream(f,new Adler32());//Adler32快 CRC32慢但更准确一些
 		ZipOutputStream zos=new ZipOutputStream(csum);
 		BufferedOutputStream out=new BufferedOutputStream(zos);
 		zos.setComment("A test of java zipping");
