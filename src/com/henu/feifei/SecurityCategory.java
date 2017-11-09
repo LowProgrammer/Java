@@ -4,7 +4,7 @@ import com.henu.feifei.utils.Enums;
 
 /**
 	*@ClassName:Food
-	*@Description: 枚举分类的更清晰化结构
+	*@Description:枚举类型分类的实现
 	*@author:feifei
 	*@date :2017年11月9日-下午1:35:36
 	*@version:1.0
