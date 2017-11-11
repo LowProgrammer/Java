@@ -223,7 +223,7 @@ public class SperaratorFileAndDiv {
 //		}
 		
 		String[] names = sperarator.getPartFileNames(sourcePath, blockSize);
-		String flag = sperarator.unite(names,"c://test/kekeunion.rar");
+		String flag = sperarator.unite(names,"d://union.rar");
 		System.out.println("�ϲ��ļ�������·���ǣ�"+flag);
 		
 		
