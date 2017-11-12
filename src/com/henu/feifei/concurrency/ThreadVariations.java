@@ -108,11 +108,72 @@ class InnerRunnable{
 		inner=new Inner(name);
 	}
 }
-
+class InnerRunnable2{
+	private int countDown=5;
+	private Thread t;
+	public InnerRunnable2(String name) {
+		t=new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				try {
+					while(true) {
+						Print.print(this);
+						if(--countDown==0)return;
+						TimeUnit.MILLISECONDS.sleep(10);
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+					Print.print("sleep() interrupted"); 
+				}
+			}
+			@Override
+			public String toString() {
+				// TODO Auto-generated method stub
+				return Thread.currentThread().getName()+" : "+countDown;
+			}
+		},name);
+		t.start();
+	}
+}
+class ThreadMethod{
+	private int countDown=5;
+	private Thread t;
+	private String name;
+	public ThreadMethod(String name) {
+		this.name=name;
+	}
+	public void runTask() {
+		if(t==null) {
+			t=new Thread(name) {
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					try {
+						while(true) {
+							Print.print(this);
+							if(--countDown==0)return;
+							sleep(10);
+						}
+					} catch (Exception e) {
+						// TODO: handle exception
+						Print.print("sleep() interrupted ");
+					}
+				}
+			};
+			t.start();
+		}
+	}
+}
 public class ThreadVariations {
 
 	public static void main(String[] args) {
-		
+		new InnerThread1("InnerThread1");
+		new InnerThread2("InnerThread2");
+		new InnerRunnable("innerRunnable");
+		new InnerRunnable2("innerRunnable2");
+		new ThreadMethod("ThreadMethod").runTask();
 	}
 
 }
