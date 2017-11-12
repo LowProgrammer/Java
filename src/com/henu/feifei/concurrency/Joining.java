@@ -46,10 +46,11 @@ public class Joining {
 	public static void main(String[] args) {
 		Sleeper
 			sleepy=new Sleeper("sleepy", 1500),
-			grumpy=new Sleeper("grumpy", 1500);
+			grumpy=new Sleeper("grumpy", 2500);
 		Joiner
 			dopey=new Joiner("Dopey", sleepy),
 			doc=new Joiner("Doc",grumpy);
-		grumpy.interrupt();
+		grumpy.interrupt();//被中断则两个线程一同结束
+		//sleepy.interrupt();
 	}
 }
