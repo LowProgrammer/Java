@@ -55,6 +55,11 @@ public class AttemptLocking {
 			}
 		}.start();
 		Thread.yield();
+		try {
+			TimeUnit.MILLISECONDS.sleep(10);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		al.untimed();
 		al.timed();
 	}
