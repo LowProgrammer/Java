@@ -172,7 +172,7 @@ public class ParseHtmlUtil {
 			String src = element.attr("src");
 			if(src!=null && !"".equals(src) && src.indexOf("jpg")!=-1){
 				System.out.println(src);
-				downloadFile(src,"G:/Java基础班视频/Java网络编程/keke下载网络图片");
+				downloadFile(src,"D:/download/image");
 			}
 		}
 		
