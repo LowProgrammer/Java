@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 /**
 	*@ClassName:ProcessParser
-	*@Description:TODO
+	*@Description:获取控制台command
 	*@author:feifei
 	*@date :2017年11月16日-下午1:18:18
 	*@version:1.0
