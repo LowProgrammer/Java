@@ -1,11 +1,30 @@
 package com.henu.feifei.algorithm;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class HangACM {
 	public static void main(String[] args) {
 		Scanner scanner=new Scanner(System.in);
-		String string;
+		
+		
+		//求最大子数组
+		//int arr[]={};
+//		int start=0,end=0,temp=0,max=0;
+//		for(int i=0;i<arr.length;i++) {
+//			temp+=arr[i];
+//			if(temp<0) {
+//				start=i+1;
+//				temp=0;
+//			}
+//			if(temp>max) {
+//				max=temp;
+//				end=i;
+//			}
+//		}
+//		System.out.println(start+"===="+end);
+		
 //		while((string=scanner.nextLine())!="") {
 //			String[] num=string.split(" ");
 //			int a=Integer.parseInt(num[0]);
@@ -24,6 +43,63 @@ public class HangACM {
 //			}
 //			System.out.println(str);
 //		}
+	}
+	/**
+	 * 1004 let the ballon Rise
+	 */
+	
+	public void maxNumOfArr() {
+		Scanner scanner=new Scanner(System.in);
+		int N;
+		while((N=scanner.nextInt())!=0){
+			String[] arr=new String[N];
+			for(int i=0;i<N;i++) {
+				arr[i]=scanner.next();
+			}
+			int maxNum=0;
+			String key = null;
+			for (int i = 0; i < arr.length; i++) {
+				int max=0;
+				for (int j = i; j < arr.length; j++) {
+					if(arr[j].equals(arr[i])) {
+						max++;
+					}
+				}
+				if(max>maxNum) {
+					key=arr[i];
+					maxNum=max;
+				}
+			}
+			System.out.println(key);
+		}
+	}
+	//1003求最大子数组
+	public void maxSum() {
+		Scanner scanner=new Scanner(System.in);
+		int lines=Integer.parseInt(scanner.nextLine());
+		for(int i=0;i<lines;i++) {
+			String string=scanner.nextLine();
+			String[] as=string.split(" ");
+			int[] arr=new int[Integer.parseInt(as[0])];
+			for(int j=1;j<as.length;j++) {
+				arr[j-1]=Integer.parseInt(as[j]);
+			}
+			int start=0,end=0,temp=0,max=0;
+			for(int m=0;m<arr.length;m++) {
+				temp+=arr[m];
+				if(temp<0) {
+					start=m+1;
+					temp=0;
+				}
+				if(temp>max) {
+					max=temp;
+					end=m;
+				}
+			}
+			System.out.println("Case "+(i+1)+":");
+			System.out.println(max+" "+(start+1)+" "+(end+1));
+			if(i<lines-1) {System.out.println();}
+		}
 	}
 	public void safeCraker() {
 		Scanner scanner=new Scanner(System.in);
