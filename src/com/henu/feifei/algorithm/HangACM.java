@@ -7,8 +7,11 @@ import java.util.Scanner;
 public class HangACM {
 	public static void main(String[] args) {
 		Scanner scanner=new Scanner(System.in);
-		
-		
+		String str;
+		while(!(str=scanner.nextLine()).equals("0 0 0")){			
+			String[] num=str.split(" ");
+			System.out.println(getNumOfTemp(Integer.parseInt(num[0]),Integer.parseInt(num[1]),Integer.parseInt(num[2])));
+		}
 		//求最大子数组
 		//int arr[]={};
 //		int start=0,end=0,temp=0,max=0;
@@ -44,6 +47,71 @@ public class HangACM {
 //			System.out.println(str);
 //		}
 	}
+	/**
+	 * 1005 完整方法，f(n-1) f(n-2)在AB确定的情况下，周期性变化(7x7)
+	 */
+	public static void getF() {
+		        Scanner in = new Scanner(System.in);  
+		        int a, b;  
+		        int n;  
+		        while (in.hasNext()) {  
+		            a = in.nextInt();  
+		            b = in.nextInt();  
+		            n = in.nextInt();  
+		            if (a < 1 & a > 1000 & b < 1 & b > 1000 & b < 1 & a > 100000000)  
+		                System.exit(0);  
+		            if (a == 0 & b == 0 & n == 0)  
+		                System.exit(0);  
+		            int f[] = new int[50];  
+		            for (int i = 1; i < 50; i++) {  
+		                if (i == 1 || i == 2) {  
+		                    f[i] = 1;  
+		                } else {  
+		                    f[i] = (a * f[i - 1] + b * f[i - 2]) % 7;  
+		                }  
+		            }  
+		            System.out.println(f[n % 49]);  
+		        }  
+		        in.close();  
+	}
+	/**
+	 * 1005 递归
+	 * @param A
+	 * @param B
+	 * @param N
+	 * @return
+	 */
+	public static int getNum(int A,int B,int N) {
+		if(N==1)return 1;
+		if(N==2)return 1;
+		return (A*getNum(A, B, N-1)+B*getNum(A, B, N-2))%7;
+	}
+	/**
+	 * 1005 迭代
+	 * @param A
+	 * @param B
+	 * @param N
+	 * @return
+	 */
+	public static int getNumOfTemp(int A,int B,int N) {
+		int result = 0, a1 = 1, a2 = 1;
+		if (N == 1) {
+			a1 = 1;
+			result = 1;
+		} else if (N == 2) {
+			a2 = 1;
+			result = 1;
+		} else {
+			for (int i = 3; i <= N; i++) {
+				result = (a2 * A + a1 * B)%7;
+				a1 = a2;
+				a2 = result;
+			}
+		}
+		return result;
+	} 
+	
+	
 	/**
 	 * 1004 let the ballon Rise
 	 */
