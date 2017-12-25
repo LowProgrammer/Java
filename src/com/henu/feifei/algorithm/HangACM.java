@@ -1,5 +1,7 @@
 package com.henu.feifei.algorithm;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -7,10 +9,16 @@ import java.util.Scanner;
 public class HangACM {
 	public static void main(String[] args) {
 		Scanner scanner=new Scanner(System.in);
-		String str;
-		while(!(str=scanner.nextLine()).equals("0 0 0")){			
-			String[] num=str.split(" ");
-			System.out.println(getNumOfTemp(Integer.parseInt(num[0]),Integer.parseInt(num[1]),Integer.parseInt(num[2])));
+		while(scanner.hasNext()){			
+			int degree=scanner.nextInt();
+			double sec=1,min=1.0/60,hour=1.0/120;
+			int counter=0;
+			for(int i=0;i<12*60*60;i++) {
+				if(IsHappy(i, degree))counter++;
+			}
+			 DecimalFormat df = new DecimalFormat("0.000");
+			 df.setRoundingMode(RoundingMode.HALF_UP);
+			System.out.println(df.format(counter*1.0/(43200)*100));
 		}
 		//求最大子数组
 		//int arr[]={};
@@ -47,6 +55,150 @@ public class HangACM {
 //			System.out.println(str);
 //		}
 	}
+	public void tickAndTickOfTrue() {
+		Scanner s=new Scanner(System.in);
+        while(true){
+            double D=s.nextDouble();
+            if(D==-1)
+                break;
+            double mhmin[]=new double[11];
+            double mhmax[]=new double[11];
+            for(int i=0;i<11;i++){
+                mhmin[i]=(360*i+D)*120/11;
+                mhmax[i]=(360*i+360-D)*120/11;
+            }
+            double smmin[]=new double[708];
+            double smmax[]=new double[708];
+            for(int i=0;i<708;i++){
+                smmin[i]=(360*i+D)/5.9;
+                smmax[i]=(360*i+360-D)/5.9;
+            }
+            double shmin[]=new double[719];
+            double shmax[]=new double[719];
+            for(int i=0;i<719;i++){
+                shmin[i]=(360*i+D)*120/719;
+                shmax[i]=(360*i+360-D)*120/719;
+            }
+            double countTime=0;
+            for(int i=0;i<11;i++){
+                for(int j=0;j<708;j++){
+                    if(smmin[j]<mhmax[i]&&smmax[j]>mhmin[i]){
+                        for(int k=0;k<719;k++){
+                            if(shmin[k]<smmax[j]&&shmax[k]>smmin[j]){
+                                if(shmin[k]<mhmax[i]&&shmax[k]>mhmin[i]){
+                                    double min=Max(shmin[k],smmin[j],mhmin[i]);
+                                    double max=Min(shmax[k],smmax[j],mhmax[i]);
+                                    countTime=countTime+max-min;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            double percent=countTime/432;
+            System.out.printf("%.3f", percent);
+            System.out.println();
+            
+        }
+    }
+	/**
+	 * 三个数中最小值
+	 * @param d
+	 * @param e
+	 * @param f
+	 * @return
+	 */
+	private static double Min(double d, double e, double f) {
+		// TODO Auto-generated method stub
+		double min=0;
+		min=d>e?e:d;
+		min=min>f?f:min;
+		return min;
+	}
+	/**
+	 * 三个数中最大值
+	 * @param d
+	 * @param e
+	 * @param f
+	 * @return
+	 */
+	private static double Max(double d, double e, double f) {
+		// TODO Auto-generated method stub
+		double max=0;
+		max=d>e?d:e;
+		max=max>f?max:f;
+		return max;
+	}
+	/**
+	 * 1006(存在误差)
+	 */
+	public void tickAndTick() {
+		Scanner scanner=new Scanner(System.in);
+		while(scanner.hasNext()){			
+			int degree=scanner.nextInt();
+			double sec=1,min=1.0/60,hour=1.0/120;
+			int counter=0;
+			for(int i=0;i<12*60*60;i++) {
+				if(IsHappy(i, degree))counter++;
+			}
+			 DecimalFormat df = new DecimalFormat("0.000");
+			 df.setRoundingMode(RoundingMode.HALF_UP);
+			System.out.println(df.format(counter*1.0/(43200)*100));
+		}
+	}
+	/**
+	 * 1006 判断是否大于standard N秒时(存在错误)
+	 * @param N
+	 * @param standard
+	 * @return
+	 */
+	public static boolean IsHappy(int N,int standard) {
+		double a1=N%360,a2=N*(1.0/60)%360,a3=N*(1.0/120)%360;
+		boolean result=false;
+		if(a1<a2&&a2<a3) {
+			if((a2-a1)>=standard&&(a3-a2)>=standard&&(a1+360-a3)>=standard) {
+				result=true;
+			}else {
+				result=false;
+			}
+		}
+		if(a1<a3&&a3<a2) {
+			if((a3-a1)>=standard&&(a2-a3)>=standard&&(a1+360-a2)>=standard) {
+				result=true;
+			}else {
+				result=false;
+			}
+		}
+		if(a2<a1&&a1<a3) {
+			if((a1-a2)>=standard&&(a3-a1)>=standard&&(a2+360-a3)>=standard) {
+				result=true;
+			}else {
+				result=false;
+			}
+		}
+		if(a2<a3&&a3<a1) {
+			if((a3-a2)>=standard&&(a1-a3)>=standard&&(a2+360-a1)>=standard) {
+				result=true;
+			}else {
+				result=false;
+			}
+		}
+		if(a3<a1&&a1<a2) {
+			if((a1-a3)>=standard&&(a2-a1)>=standard&&(a3+360-a2)>=standard) {
+				result=true;
+			}else {
+				result=false;
+			}
+		}
+		if(a3<a2&&a2<a1) {
+			if((a2-a3)>=standard&&(a1-a2)>=standard&&(a3+360-a1)>=standard) {
+				result=true;
+			}else {
+				result=false;
+			}
+		}
+		return result;
+	}	
 	/**
 	 * 1005 完整方法，f(n-1) f(n-2)在AB确定的情况下，周期性变化(7x7)
 	 */
